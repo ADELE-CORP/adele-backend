@@ -4,11 +4,21 @@ import fs from 'fs';
 const Schema = mongoose.Schema;
 
 const Feature = new Schema({
+    type: {
+        type: String,
+        enum: ['Feature'],
+        required: true
+    },
     properties: {
         type: Map,
         of: Schema.Types.Mixed
     },
     geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
         coordinates: {
             type: [Number],
             required: true
@@ -50,11 +60,9 @@ export async function saveData() {
             await featDoc.save()
                 .then(() => {
                     console.log('GeoJSON data saved to MongoDB');
-                    mongoose.disconnect();
                 })
                 .catch(err => {
                     console.error('Error saving GeoJSON data to MongoDB:', err);
-                    mongoose.disconnect();
                 });
         });
     });
