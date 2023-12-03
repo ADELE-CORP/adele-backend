@@ -9,7 +9,7 @@ app.use(cors());
 
 (async () => {
     await dbConnect();
-    await saveData();
+    //await saveData();
 })();
 
 app.get('/data', async (req, res) => {
